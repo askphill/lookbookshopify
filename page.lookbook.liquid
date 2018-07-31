@@ -1,0 +1,96 @@
+  {% for block in section.blocks %}  
+<!-- position options -->
+<div class="flex-box {% if block.settings.position == 'left'%}left{% endif %} {% if block.settings.position == 'right'%}right{% endif %} {% if block.settings.position == 'center'%}center{% endif %}">
+    <div class="{% if block.settings.width =='one-third'%} one-third {% endif %}{% if block.settings.width =='two-thirds'%} two-third {% endif %}{% if block.settings.width =='full-width'%} full-width {% endif %}">
+        <img class ="box-image" src="{{ block.settings.image | img_url: '' }}" alt="{{ block.settings.image.alt }}" />
+    </div>
+</div>
+  {% endfor %}
+{% schema %}
+
+  {
+    "name": "lok",
+"blocks": [
+        {
+          "type": "select",
+          "name": "Add Lookbook item",
+          "settings": [
+            {
+              "id": "image",
+              "type": "image_picker",
+  "label": "foto lookbook"
+            },
+            {
+              "type": "select",
+              "id": "width",
+              "options": [
+                  { "value": "one-third", "label": "1/3"},
+                  { "value": "two-thirds", "label": "2/3"},
+                  { "value": "full-width", "label": "full"}
+              ],
+              "label": "Products per page"
+            },
+{
+              "type": "select",
+              "id": "position",
+              "options": [
+                  { "value": "left", "label": "left"},
+                  { "value": "right", "label": "right"},
+                  { "value": "center", "label": "center"}
+              ],
+              "label": "Position"
+            }
+          ]
+        }
+    ]
+  }
+
+{% endschema %}
+
+{% stylesheet %}
+.box-image{
+    width: 100%;
+    height: 100%;
+}
+.flex-box{
+    margin-bottom: 0;
+}
+.left{
+    display : flex;
+    justify-content: flex-start;
+}
+.right{
+    display : flex;
+    justify-content: flex-end;
+}
+.center{
+    display : flex;
+    justify-content: center;
+}
+.one-third{
+    --widthA:100%;
+    width: calc(var(--widthA) / 3);
+}
+.two-third{
+--widthA:100%;
+    width: calc(var(--widthA) / 3 * 2);
+}
+.full-width{
+    --widthA: 100%;
+}
+
+@media screen and (max-width: 800px){
+    .flex-box{
+        display: flex;
+        justify-content: center;
+        margin-bottom: 1em;
+    }
+    .one-third ,.two-third, .full-width{
+        width: calc(100% - 100px);
+    }
+}
+{% endstylesheet %}
+
+{% javascript %}
+
+{% endjavascript %}
